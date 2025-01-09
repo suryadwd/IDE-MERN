@@ -1,6 +1,6 @@
 
 import jwt from "jsonwebtoken"
-import { User } from "../modals/user.model"
+import { User } from "../modals/user.model.js"
 
 export const protectedRoute = async (req, res, next) => {
 

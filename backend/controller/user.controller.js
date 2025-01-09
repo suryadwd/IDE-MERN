@@ -50,6 +50,11 @@ export const login = async(req, res) => {
 
   if(!isMatch) return res.status(400).json({success:false, message:"password invalid"})
 
+    const payload = {id:userExist._id}
+
+    genTokAndCookies(payload,res)
+
+
     return res.status(200).json({success:true, message:"login", userExist})
 
 }

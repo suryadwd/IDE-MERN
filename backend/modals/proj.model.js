@@ -7,7 +7,7 @@ const projectSchema = new mongoose.Schema({
     ref:"User"
   },
 
-  name:{
+  projname:{
     type:String
   },
 
@@ -28,4 +28,4 @@ const projectSchema = new mongoose.Schema({
 
 }, {timestamps:true})
 
-export const Profile = mongoose.model("Profile",projectSchema)
+export const Project = mongoose.model("Project",projectSchema)
