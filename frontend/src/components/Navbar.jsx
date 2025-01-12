@@ -1,6 +1,30 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 const navbar = () => {
+
+  const navigate = useNavigate()
+
+  const handleOnClick = async() => {
+
+    console.log("click")
+
+    try {
+      
+      let res = await axios.post("http://localhost:7000/api/v1/users/logout")
+
+      if(res.data.success){
+        toast.success(res.data.message)
+        navigate("/login")
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
   return (
     <>
       <div className=" flex items-center justify-between bg-slate-950 h-16 ">
@@ -10,7 +34,7 @@ const navbar = () => {
           <Link className=" transition-all hover:text-blue-500">About</Link>
           <Link className=" transition-all hover:text-blue-500">Services</Link>
           <Link className=" transition-all hover:text-blue-500">Contact</Link>
-          <button className="bg-red-700 p-2 rounded-lg">Logout</button>
+          <button onClick={handleOnClick} className="bg-red-700 p-2 rounded-lg">Logout</button>
         </div>
       </div>
     </>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
 const SignUp = () => {
   const [data, setData] = useState({
     username: "",
@@ -7,14 +9,38 @@ const SignUp = () => {
     password: "",
   });
 
-  const handelOnSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handelOnSubmit = async (e) => {
     e.preventDefault();
     setData({
       username: "",
       email: "",
       password: "",
     });
+
+    try {
+      const res = await axios.post(
+        "http://localhost:7000/api/v1/users/signup",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  //abhi signup dikh nai raha theek krna isko
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -27,11 +53,7 @@ const SignUp = () => {
           className="w-[20vw] h-[40vh] flex flex-col justify-center bg-slate-950 rounded-lg shadow-2xl shadow-black/85"
         >
           <div className="-mt-16 ">
-            <img
-              className="h-50 w-50 object-cover"
-              src="logo.png"
-              alt=""
-            />
+            <img className="h-50 w-50 object-cover" src="logo.png" alt="" />
           </div>
 
           <div className="-mt-10 flex flex-col gap-4 p-3">
