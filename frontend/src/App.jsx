@@ -1,11 +1,34 @@
-import React from 'react'
-import './index.css';
+import React from "react";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+
+const browserRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+
+  {
+    path: "/login",
+    element: <Login />,
+  },
+
+]);
+
 const App = () => {
   return (
-    <div className='bg-red-50'>
-      <h1 className='bg-red-600 text-lg'>hlo</h1>
-    </div>
-  )
-}
+    <>
+      <RouterProvider router={browserRouter} />
+    </>
+  );
+};
 
-export default App
+export default App;
